@@ -10,13 +10,13 @@ Given("the user is on login page", async() =>{
     await loginPage.goto();
 })
 
-When("the user enter valid email and password", async() =>{
-    await loginPage.emailLocator.fill("test@example.com");
-    await loginPage.passwordLocator.fill("pass123");
+When("the user enter valid {string} and {string}", async(email: string, password: string) =>{
+    await loginPage.emailLocator.fill(email);
+    await loginPage.passwordLocator.fill(password);
 })
 
-Then("the user should see their email and password URL", async() =>{
+Then("the user should see their {string} and {string} in URL", async(email: string, password: string) =>{
     await loginPage.signInButtonLocator.click();
-    await expect(page).toHaveURL(/test%40example.com/)
-    await expect(page).toHaveURL(/pass123/)
+    await expect(page).toHaveURL(/example.com/)
+    await expect(page).toHaveURL(/`${password}`/)
 })
