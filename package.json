@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "cucumber-js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ajithcoder/pw-docker.git"
@@ -17,7 +19,9 @@
   },
   "homepage": "https://github.com/ajithcoder/pw-docker#readme",
   "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.50.1",
-    "@types/node": "^22.13.1"
+    "@types/node": "^22.13.1",
+    "ts-node": "^10.9.2"
   }
 }
