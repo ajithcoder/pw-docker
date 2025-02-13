@@ -1,30 +1,22 @@
-import {Given, When, Then, Before, After} from '@cucumber/cucumber'
-import { chromium, expect, Page, Browser } from '@playwright/test'
+import { Given,When,Then  } from "@cucumber/cucumber";
+import {expect} from "@playwright/test"
+import {page} from '../browserSetup'
+import { LoginPage } from "../page objects/loginPage.pom";
 
-let page: Page
-let browser: Browser
-
-Before(async ()=>{
-    browser = await chromium.launch({headless: true})
-    const context = await browser.newContext()
-    page = await context.newPage();
-})
-
-After(async () =>{
-    await browser.close();
-})
+let loginPage: LoginPage;
 
 Given("the user is on login page", async() =>{
-    await page.goto('https://binaryville.com/account');
+    loginPage = new LoginPage(page);
+    await loginPage.goto();
 })
 
 When("the user enter valid email and password", async() =>{
-    await page.getByRole("textbox", {name: "Email"}).fill("test@example.com");
-    await page.getByRole("textbox", {name: "Password"}).fill("pass123");
+    await loginPage.emailLocator.fill("test@example.com");
+    await loginPage.passwordLocator.fill("pass123");
 })
 
 Then("the user should see their email and password URL", async() =>{
-    await page.getByRole("button", {name: "Sign in"}).click();
+    await loginPage.signInButtonLocator.click();
     await expect(page).toHaveURL(/test%40example.com/)
     await expect(page).toHaveURL(/pass123/)
 })

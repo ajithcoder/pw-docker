@@ -1,14 +1,20 @@
 import { Locator, Page } from "@playwright/test";
 
 export class LoginPage {
-  public readonly emailLocator: Locator;
-  public readonly passwordLocator: Locator;
-  public readonly signInButtonLocator: Locator;
+  readonly page:Page;
+  readonly emailLocator: Locator;
+  readonly passwordLocator: Locator;
+  readonly signInButtonLocator: Locator;
 
   constructor(page: Page) {
+    this.page = page; 
     this.emailLocator = page.getByRole("textbox", { name: "Email" });
     this.passwordLocator = page.getByRole("textbox", { name: "Password" });
     this.signInButtonLocator = page.getByRole("button", { name: "Sign in" });
+  }
+
+  async goto(){
+    await this.page.goto('https://binaryville.com/account/')
   }
 
   async login(email: string, password: string) {
